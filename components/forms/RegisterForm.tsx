@@ -1,0 +1,101 @@
+"use client";
+
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { FormEvent, useState } from "react";
+import toast from "react-hot-toast";
+import { FaGoogle } from "react-icons/fa";
+
+export default function RegisterForm() {
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  const router = useRouter();
+
+  const handleChange = (dataProp: string, value: string) => {
+    setData((prev) => ({ ...prev, [dataProp]: value }));
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    if (data.name && data.password && data.name) {
+      try {
+        const res = await fetch("/api/register", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({ data }),
+        });
+        if (res.ok) {
+          setData({ name: "", password: "", email: "" });
+          toast.success("Created account");
+          router.push("/");
+        } else {
+          const errorData = await res.json();
+          if (errorData.message === "User already exists") {
+            toast.error("User already exists. Please use a different email.");
+          }
+        }
+      } catch (error) {
+        toast.error("Something went wrong, please try again later");
+      }
+    }
+  };
+
+  return (
+    <div className="flex flex-col items-center px-8 py-4 sm:w-96 w-full mx-auto justify-center bg-neutral-900 rounded-md shadow-lg">
+      <form
+        onSubmit={handleSubmit}
+        className="register w-full flex flex-col gap-2 items-center justify-center"
+      >
+        <p className="text-xl font-semibold">Sign Up</p>
+        <div className="flex w-full flex-col gap-1">
+          <label htmlFor="name">Name</label>
+          <input
+            required
+            onChange={(e) => {
+              handleChange(e.target.name, e.target.value);
+            }}
+            type="text"
+            name="name"
+          />
+        </div>
+        <div className="flex w-full flex-col gap-1">
+          <label htmlFor="email">Email</label>
+          <input
+            onChange={(e) => {
+              handleChange(e.target.name, e.target.value);
+            }}
+            required
+            type="email"
+            name="email"
+          />
+        </div>
+        <div className="flex w-full flex-col gap-1">
+          <label htmlFor="password">Password</label>
+          <input
+            onChange={(e) => {
+              handleChange(e.target.name, e.target.value);
+            }}
+            required
+            type="password"
+            name="password"
+          />
+        </div>
+        <div className="border-b mt-4 pb-4 w-full flex items-center justify-center border-accent">
+          <button className="btn1" type="submit">
+            Sign Up
+          </button>
+        </div>
+      </form>
+      <div className="mt-4 w-full flex items-center justify-center border-accent">
+        <button onClick={() => signIn("google")} className="btn2 gap-2">
+          <FaGoogle className="text-2xl" /> Sign up with Google
+        </button>
+      </div>
+    </div>
+  );
+}

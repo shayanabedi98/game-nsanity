@@ -14,6 +14,26 @@
   /* font-family: "Lato", sans-serif; */
 }
 
+.font {
+  font-family: "Lato", sans-serif;
+}
+
 body {
   @apply text-white;
+}
+
+.register input {
+  @apply rounded-sm bg-accent text-white px-1;
+}
+
+.register label {
+  @apply text-base;
+}
+
+.btn1 {
+  @apply bg-primary font-bold px-2 py-1 flex items-center justify-center w-full h-12 rounded-sm text-bg lg:hover:bg-accent lg:hover:text-white transition;
+}
+
+.btn2 {
+  @apply bg-white font-bold px-2 py-1 flex items-center justify-center w-full h-12 rounded-sm text-bg lg:hover:bg-accent lg:hover:text-white transition;
 }
