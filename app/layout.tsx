@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Toaster } from "react-hot-toast";
+import NextAuthProvider from "@/components/Providers";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,10 +19,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={`font bg-bg`}>
         <div className="flex flex-col min-h-screen">
-          <Navbar />
-          <main className="my-20 flex-grow">{children}</main>
-          <Footer />
-          <Toaster />
+          <NextAuthProvider>
+            <Navbar />
+            <main className="my-20 flex-grow">{children}</main>
+            <Footer />
+            <Toaster />
+          </NextAuthProvider>
         </div>
       </body>
     </html>

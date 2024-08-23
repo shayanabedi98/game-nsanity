@@ -1,6 +1,7 @@
 "use client";
 
 import { signIn } from "next-auth/react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import toast from "react-hot-toast";
@@ -95,6 +96,7 @@ export default function RegisterForm() {
         <button onClick={() => signIn("google")} className="btn2 gap-2">
           <FaGoogle className="text-2xl" /> Sign up with Google
         </button>
+        <Link href={"/sign-in"}></Link>
       </div>
     </div>
   );
