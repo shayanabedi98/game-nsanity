@@ -1,3 +1,8 @@
+import Container from "@/components/Container";
+import SignInForm from "@/components/forms/SignInForm";
+
 export default function SignIn() {
-    return <div></div>
+    return <Container>
+        <SignInForm />
+    </Container>
 }

@@ -2,7 +2,7 @@ import { AuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "@/lib/db";
-import { PrismaAdapter } from "@auth/prisma-adapter";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { compare } from "bcrypt";
 
 const CustomPrismaAdapter = PrismaAdapter(prisma) as any;
@@ -42,7 +42,7 @@ export const authOptions: AuthOptions = {
           where: {
             email: credentials.email,
           },
-        });
+        });        
 
         if (!user) {
           return null;

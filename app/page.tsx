@@ -1,11 +1,11 @@
+import Container from "@/components/Container";
 import YoutubeStats from "@/components/home/YoutubeStats";
 
-export default function Home() {
-
+export default async function Home() {
 
   return (
-    <main className="">
+    <Container>
       <YoutubeStats />
-    </main>
+    </Container>
   );
 }

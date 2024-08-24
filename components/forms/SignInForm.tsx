@@ -7,9 +7,8 @@ import { FormEvent, useState } from "react";
 import toast from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa";
 
-export default function RegisterForm() {
+export default function SignInForm() {
   const [data, setData] = useState({
-    name: "",
     email: "",
     password: "",
   });
@@ -21,28 +20,29 @@ export default function RegisterForm() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (data.name && data.password && data.name) {
-      try {
-        const res = await fetch("/api/register", {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify({ data }),
-        });
-        if (res.ok) {
-          setData({ name: "", password: "", email: "" });
-          toast.success("Created account");
-          router.push("/");
-        } else {
-          const errorData = await res.json();
-          if (errorData.message === "User already exists") {
-            toast.error("User already exists. Please use a different email.");
-          }
-        }
-      } catch (error) {
-        toast.error("Something went wrong, please try again later");
+
+    if (!data.email || !data.password) {
+      toast.error("Please complete all missing fields");
+      return;
+    }
+
+    try {
+      const res = await signIn("credentials", {
+        redirect: false,
+        email: data.email,
+        password: data.password,
+      });
+
+      if (res?.ok) {
+        console.log(res);
+        router.push("/");
+      } else if (res) {
+        toast.error("Invalid email or password");
+      } else {
+        toast.error("An error occurred during sign in");
       }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -52,18 +52,7 @@ export default function RegisterForm() {
         onSubmit={handleSubmit}
         className="register w-full flex flex-col gap-2 items-center justify-center"
       >
-        <p className="text-xl font-semibold">Sign Up</p>
-        <div className="flex w-full flex-col gap-1">
-          <label htmlFor="name">Name</label>
-          <input
-            required
-            onChange={(e) => {
-              handleChange(e.target.name, e.target.value);
-            }}
-            type="text"
-            name="name"
-          />
-        </div>
+        <p className="text-xl font-semibold">Sign In</p>
         <div className="flex w-full flex-col gap-1">
           <label htmlFor="email">Email</label>
           <input
@@ -88,16 +77,15 @@ export default function RegisterForm() {
         </div>
         <div className="border-b mt-4 pb-4 w-full flex items-center justify-center border-accent">
           <button className="btn1" type="submit">
-            Sign Up
+            Sign In
           </button>
         </div>
       </form>
-      <div className="mt-4 w-full flex flex-col gap-2 items-center justify-center border-accent">
+      <div className="mt-4 w-full flex items-center justify-center border-accent">
         <button onClick={() => signIn("google")} className="btn2 gap-2">
           <FaGoogle className="text-2xl" /> Sign in with Google
         </button>
-        <span>Already have an account? <Link className="text-primary" href={"/sign-in"}>Sign in</Link></span>
-        
+        <Link href={"/register"}></Link>
       </div>
     </div>
   );
