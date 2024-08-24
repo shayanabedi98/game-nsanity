@@ -97,7 +97,6 @@ export default function RegisterForm() {
           <FaGoogle className="text-2xl" /> Sign in with Google
         </button>
         <span>Already have an account? <Link className="text-primary" href={"/sign-in"}>Sign in</Link></span>
-        
       </div>
     </div>
   );

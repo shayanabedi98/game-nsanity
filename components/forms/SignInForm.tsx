@@ -81,11 +81,16 @@ export default function SignInForm() {
           </button>
         </div>
       </form>
-      <div className="mt-4 w-full flex items-center justify-center border-accent">
+      <div className="flex-col gap-2 mt-4 w-full flex items-center justify-center border-accent">
         <button onClick={() => signIn("google")} className="btn2 gap-2">
           <FaGoogle className="text-2xl" /> Sign in with Google
         </button>
-        <Link href={"/register"}></Link>
+        <span>
+          Don&apos;t have an account?{" "}
+          <Link className="text-primary" href={"/sign-in"}>
+            Sign up
+          </Link>
+        </span>
       </div>
     </div>
   );

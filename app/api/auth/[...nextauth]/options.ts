@@ -35,41 +35,39 @@ export const authOptions: AuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials.password) {
-          return null;
+        if (!credentials?.email || !credentials?.password) {
+          throw new Error("Invalid email or password");
         }
         const user = await prisma.user.findUnique({
           where: {
             email: credentials.email,
           },
-        });        
+        });
 
-        if (!user) {
-          return null;
+        if (!user || !user?.hashedPassword) {
+          throw new Error("Invalid email or password");
         }
 
-        if (user.hashedPassword) {
-          const isPasswordValid = await compare(
-            credentials.password,
-            user.hashedPassword
-          );
+        const isCorrectPassword = await compare(
+          credentials.password,
+          user.hashedPassword
+        );
 
-          if (!isPasswordValid) {
-            return null;
-          }
+        if (!isCorrectPassword) {
+          throw new Error("Invalid email or password");
         }
 
-        return {
-          id: user.id,
-          email: user.email,
-          name: user.name,
-        };
+        return user;
       },
     }),
     // ...add more providers here
   ],
   pages: {
-    signIn: "/sign-in",
+    signIn: "/login",
+  },
+  debug: process.env.NODE_ENV === "development",
+  session: {
+    strategy: "jwt",
   },
   secret: process.env.NEXTAUTH_SECRET,
 };
