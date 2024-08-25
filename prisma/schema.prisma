@@ -8,18 +8,20 @@ generator client {
 }
 
 model User {
-  id             String     @id @default(auto()) @map("_id") @db.ObjectId
-  name           String?
-  email          String?    @unique
-  emailVerified  DateTime?
-  image          String?
-  accounts       Account[]
-  sessions       Session[]
-  createdAt      DateTime   @default(now())
-  updatedAt      DateTime   @updatedAt
-  hashedPassword String?
-  isAdmin        Boolean
-  Comments       Comments[]
+  id               String     @id @default(auto()) @map("_id") @db.ObjectId
+  name             String?
+  email            String?    @unique
+  emailVerified    DateTime?
+  image            String?
+  accounts         Account[]
+  sessions         Session[]
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+  hashedPassword   String?
+  isAdmin          Boolean
+  resetToken       String?
+  resetTokenExpiry DateTime?
+  Comments         Comments[]
 }
 
 model Account {

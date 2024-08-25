@@ -94,7 +94,7 @@ export default function RegisterForm() {
       </form>
       <div className="mt-4 w-full flex flex-col gap-2 items-center justify-center border-accent">
         <button onClick={() => signIn("google")} className="btn2 gap-2">
-          <FaGoogle className="text-2xl" /> Sign in with Google
+          <FaGoogle className="text-2xl" /> Continue with Google
         </button>
         <span>Already have an account? <Link className="text-primary" href={"/sign-in"}>Sign in</Link></span>
       </div>
