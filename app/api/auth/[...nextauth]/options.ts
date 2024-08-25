@@ -14,7 +14,10 @@ export const authOptions: AuthOptions = {
       return prisma.user.create({
         data: {
           ...data,
-          isAdmin: false, // Set isAdmin to false for all new Google users
+          isAdmin: false,
+          // email: data.email ?? undefined,
+          // name: data.name ?? undefined,
+          // image: data.image ?? undefined,
         },
       });
     },
@@ -63,9 +66,8 @@ export const authOptions: AuthOptions = {
     // ...add more providers here
   ],
   pages: {
-    signIn: "/login",
+    signIn: "/sign-in",
   },
-  debug: process.env.NODE_ENV === "development",
   session: {
     strategy: "jwt",
   },

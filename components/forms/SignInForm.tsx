@@ -5,13 +5,15 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import toast from "react-hot-toast";
-import { FaGoogle } from "react-icons/fa";
+import { FaEye, FaGoogle } from "react-icons/fa";
 
 export default function SignInForm() {
   const [data, setData] = useState({
     email: "",
     password: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
+
   const router = useRouter();
 
   const handleChange = (dataProp: string, value: string) => {
@@ -34,7 +36,6 @@ export default function SignInForm() {
       });
 
       if (res?.ok) {
-        console.log(res);
         router.push("/");
       } else if (res) {
         toast.error("Invalid email or password");
@@ -42,7 +43,7 @@ export default function SignInForm() {
         toast.error("An error occurred during sign in");
       }
     } catch (error) {
-      console.log(error);
+      toast.error("Something went wrong. Please try again later")
     }
   };
 
@@ -64,16 +65,27 @@ export default function SignInForm() {
             name="email"
           />
         </div>
-        <div className="flex w-full flex-col gap-1">
+        <div className="relative flex w-full flex-col gap-1">
           <label htmlFor="password">Password</label>
           <input
             onChange={(e) => {
               handleChange(e.target.name, e.target.value);
             }}
             required
-            type="password"
+            type={showPassword ? "text" : "password"}
             name="password"
           />
+            <div
+            className="absolute bottom-1 right-2 cursor-pointer"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            <FaEye
+            title="show password"
+              className={`${
+                showPassword ? "text-primary" : "text-neutral-300"
+              } text-lg`}
+            />
+          </div>
         </div>
         <div className="border-b mt-4 pb-4 w-full flex items-center justify-center border-accent">
           <button className="btn1" type="submit">
@@ -89,6 +101,11 @@ export default function SignInForm() {
           Don&apos;t have an account?{" "}
           <Link className="text-primary" href={"/register"}>
             Sign up
+          </Link>
+        </span>
+        <span>
+        <Link className="text-primary" href={"/forgot-password"}>
+            Forgot Password?
           </Link>
         </span>
       </div>

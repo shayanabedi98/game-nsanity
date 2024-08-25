@@ -21,7 +21,7 @@ model User {
   isAdmin          Boolean
   resetToken       String?
   resetTokenExpiry DateTime?
-  Comments         Comments[]
+  comments         Comments[]
 }
 
 model Account {
