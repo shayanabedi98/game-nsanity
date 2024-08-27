@@ -35,7 +35,7 @@ export default function RegisterForm() {
         if (res.ok) {
           setData({ name: "", password: "", email: "" });
           toast.success("Created account");
-          router.push("/");
+          router.push("/sign-in");
         } else {
           const errorData = await res.json();
           if (errorData.message === "User already exists") {

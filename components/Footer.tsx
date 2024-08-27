@@ -5,8 +5,9 @@ export default function Footer() {
   return (
     <footer className="text-xs">
       <Container>
-        <div className="flex items-center justify-center py-8 border-t border-accent">
-          Copyright &copy; GAME NSANITY {new Date().getFullYear()}, website developed and design by{" "}
+        <div className="flex items-center justify-center py-8 gap-1 border-t border-accent">
+          Copyright &copy; GAME NSANITY {new Date().getFullYear()}, website
+          developed and design by{" "}
           <Link
             className="underline text-primary"
             href={"https://pantheras.ca"}
