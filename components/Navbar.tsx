@@ -33,9 +33,9 @@ export default function Navbar() {
   }, [showUserMenu]);
 
   return (
-    <header>
+    <header className="bg-neutral-900 shadow-md">
       <Container>
-        <nav className="flex items-center justify-between py-4 border-b border-accent">
+        <nav className="flex items-center justify-between py-4">
           <Link href={"/"} className="flex items-center work gap-2 ">
             <IoLogoGameControllerB className="text-4xl bg-accent -rotate-12 rounded-full p-1 text-primary" />
             <p className="text-2xl font-bold">
@@ -73,7 +73,7 @@ export default function Navbar() {
                   height={26}
                 />
                 {showUserMenu && (
-                  <div className="right-0 min-w-36 bg-black absolute flex flex-col items-center justify-center rounded-md shadow-md p-2 gap-4 top-10 rounded-tr-none">
+                  <div className="z-30 right-0 min-w-36 bg-black absolute flex flex-col items-center justify-center rounded-md shadow-md p-2 gap-4 top-10 rounded-tr-none">
                     <span>{session.user.email}</span>
                     <button className="btn1"
                       onClick={() => {

@@ -7,6 +7,7 @@ import {
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 type Image = {
   secure_url: string;
@@ -43,6 +44,7 @@ export default function CreateReviewForm({ user, cloudinaryPreset }: Props) {
     },
     // images: [],
   });
+  const router = useRouter()
 
   useEffect(() => {
     return () => {
@@ -162,6 +164,8 @@ export default function CreateReviewForm({ user, cloudinaryPreset }: Props) {
       });
       if (res.ok) {
         toast.success("Created Review");
+        router.push("/admin")
+        router.refresh()
       }
     } catch (error) {
       toast.error("Something went wrong");
@@ -202,7 +206,6 @@ export default function CreateReviewForm({ user, cloudinaryPreset }: Props) {
               alt="review thumbnail"
             />
           </div>
-
           <CldUploadButton
             className={showCloudinary ? "btn2" : "hidden"}
             uploadPreset={cloudinaryPreset}
@@ -215,7 +218,6 @@ export default function CreateReviewForm({ user, cloudinaryPreset }: Props) {
               maxFileSize: 2500000, //2.5MB
             }}
           />
-
           {review.thumbnailUrl.secure_url && !showCloudinary && (
             <button
               className="btn2 "

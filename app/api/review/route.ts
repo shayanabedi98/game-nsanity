@@ -36,3 +36,52 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: "Could not create review" });
   }
 }
+
+export async function DELETE(req: Request) {
+  const { id } = await req.json();
+  const session = await getServerSession(authOptions);
+  let user;
+  try {
+    user = await prisma.user.findUnique({
+      where: { email: session?.user?.email as string },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+  if (!session || !user?.isAdmin) {
+    return NextResponse.json({ message: "Unauthenticated" }, { status: 400 });
+  }
+
+  try {
+    const deleteReview = await prisma.gameReview.delete({ where: { id } });
+    console.log("Deleted Review");
+
+    return NextResponse.json(deleteReview);
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json({ message: "Could not delete review" });
+  }
+}
+
+// export async function GET() {
+//   const session = await getServerSession(authOptions);
+//   let user;
+//   try {
+//     user = await prisma.user.findUnique({
+//       where: { email: session?.user?.email as string },
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   }
+//   if (!session || !user?.isAdmin) {
+//     return NextResponse.json({ message: "Unauthenticated" }, { status: 400 });
+//   }
+
+//   try {
+//     const reviews = await prisma.gameReview.findMany();
+//     return NextResponse.json(reviews);
+//   } catch (error) {
+//     console.log(error);
+//     return NextResponse.json({ message: "Could not get reviews" });
+//   }
+// }
