@@ -64,7 +64,7 @@ model GameReview {
   paragraphs   String[]
   rating       Float
   thumbnailUrl Thumbnail
-  images       String[]   @default([])
+  // images       String[]   @default([])
   comments     Comments[]
 }
 

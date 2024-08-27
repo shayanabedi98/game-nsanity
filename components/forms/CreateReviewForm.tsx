@@ -5,6 +5,8 @@ import {
   CloudinaryUploadWidgetResults,
 } from "next-cloudinary";
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import toast from "react-hot-toast";
 
 type Image = {
   secure_url: string;
@@ -15,39 +17,46 @@ type Props = {
   user: {
     name: string | null;
   };
+  cloudinaryPreset: string;
 };
 
 type Review = {
   title: string;
   author: string;
   paragraphs: string[];
-  rating: number | null;
+  rating: number;
   thumbnailUrl: { secure_url: string; public_id: string };
   images?: string[];
 };
 
-export default function CreateReviewForm({ user }: Props) {
-  const [imageUrls, setImageUrls] = useState<Image[]>([]);
+export default function CreateReviewForm({ user, cloudinaryPreset }: Props) {
+  // const [imageUrls, setImageUrls] = useState<Image[]>([]);
+  const [showCloudinary, setShowCloudinary] = useState(true);
   const [review, setReview] = useState<Review>({
     title: "",
     author: user.name || "",
     paragraphs: [""],
-    rating: null,
+    rating: 0,
     thumbnailUrl: {
       secure_url: "",
       public_id: "",
     },
-    images: [],
+    // images: [],
   });
 
   useEffect(() => {
-    console.log("Current image URLs:", imageUrls);
-    // console.log(review);
-    console.log(review.thumbnailUrl);
-  }, [imageUrls, review]);
+    return () => {
+      // Ensure scroll is re-enabled
+      document.body.style.overflow = "auto";
+    };
+  }, []);
 
   const handleThumbnailUpload = (result: CloudinaryUploadWidgetResults) => {
     const info = result.info as object;
+    if (Array.isArray(info) && info.length > 1) {
+      toast.error("Please upload only one image.");
+      return;
+    }
     if ("secure_url" in info && "public_id" in info) {
       setReview((prev) => {
         return {
@@ -58,23 +67,29 @@ export default function CreateReviewForm({ user }: Props) {
           },
         };
       });
+      setShowCloudinary(false);
     }
+    console.log(info);
   };
 
-  const handleImageUpload = (result: CloudinaryUploadWidgetResults) => {
-    const info = result.info as object;
-    if (info && "secure_url" in info && "public_id" in info) {
-      setImageUrls((prevUrls) => [
-        ...prevUrls,
-        {
-          secure_url: info.secure_url as string,
-          public_id: info.public_id as string,
-        },
-      ]);
-    }
-  };
+  // const handleImageUpload = (result: CloudinaryUploadWidgetResults) => {
+  //   const info = result.info as object;
+  //   if (info && "secure_url" in info && "public_id" in info) {
+  //     setImageUrls((prevUrls) => [
+  //       ...prevUrls,
+  //       {
+  //         secure_url: info.secure_url as string,
+  //         public_id: info.public_id as string,
+  //       },
+  //     ]);
+  //   }
+  // };
 
-  const removeImage = async (e: React.FormEvent, publicId: string) => {
+  const removeImage = async (
+    e: React.FormEvent,
+    publicId: string,
+    isThumbnail: boolean
+  ) => {
     e.preventDefault();
 
     try {
@@ -85,6 +100,15 @@ export default function CreateReviewForm({ user }: Props) {
         },
         body: JSON.stringify({ publicId }),
       });
+
+      if (res.ok) {
+        if (isThumbnail) {
+          setReview((prev) => ({
+            ...prev,
+            thumbnailUrl: { secure_url: "", public_id: "" },
+          }));
+        }
+      }
     } catch (error) {
       alert("whoops");
     }
@@ -94,7 +118,8 @@ export default function CreateReviewForm({ user }: Props) {
     setReview((prev) => ({ ...prev, [name]: value }));
   };
 
-  const addParagraph = () => {
+  const addParagraph = (e: React.FormEvent) => {
+    e.preventDefault();
     setReview((prev) => {
       const newParagraphs = [...prev.paragraphs];
       newParagraphs.push("");
@@ -115,8 +140,32 @@ export default function CreateReviewForm({ user }: Props) {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (
+      !review.title ||
+      !review.thumbnailUrl ||
+      review.paragraphs.some((p) => p.trim() === "")
+    ) {
+      toast.error("Missing fields");
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/review", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ review }),
+      });
+      if (res.ok) {
+        toast.success("Created Review");
+      }
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
   };
 
   return (
@@ -138,6 +187,46 @@ export default function CreateReviewForm({ user }: Props) {
             type="text"
             name="title"
           />
+        </div>
+        <div className="w-full flex flex-col">
+          <span>Thumbnail</span>
+          <div className="flex items-center justify-center">
+            <Image
+              className="w-full object-cover"
+              src={
+                review.thumbnailUrl.secure_url ||
+                "/assets/thumbnail-default.jpg"
+              }
+              height={300}
+              width={300}
+              alt="review thumbnail"
+            />
+          </div>
+
+          <CldUploadButton
+            className={showCloudinary ? "btn2" : "hidden"}
+            uploadPreset={cloudinaryPreset}
+            onSuccess={handleThumbnailUpload}
+            options={{
+              // sources: ["local"],
+              multiple: false,
+              maxFiles: 1,
+              clientAllowedFormats: ["jpg", "jpeg"],
+              maxFileSize: 2500000, //2.5MB
+            }}
+          />
+
+          {review.thumbnailUrl.secure_url && !showCloudinary && (
+            <button
+              className="btn2 "
+              onClick={(e) => {
+                removeImage(e, review.thumbnailUrl.public_id, true);
+                setShowCloudinary(true);
+              }}
+            >
+              Remove Thumbnail
+            </button>
+          )}
         </div>
         <div className="flex w-full flex-col gap-1">
           <label htmlFor="paragraphs">Paragraphs:</label>
@@ -164,12 +253,12 @@ export default function CreateReviewForm({ user }: Props) {
           ))}
         </div>
         <button onClick={addParagraph} className="btn2">
-          add
+          Add Paragraph
         </button>
         <div className="flex w-full flex-col gap-1">
           <label htmlFor="rating">Rating</label>
           <input
-            value={review.rating || 0}
+            value={review.rating}
             autoComplete="off"
             required
             onChange={(e) => {
@@ -179,40 +268,8 @@ export default function CreateReviewForm({ user }: Props) {
             min={0}
             max={10}
             step={0.1}
-            name="title"
+            name="rating"
           />
-        </div>
-        <div className="w-full flex flex-col">
-          <span>Thumbnail</span>
-          {review.thumbnailUrl.secure_url && (
-            <div>{review.thumbnailUrl.secure_url}</div>
-          )}
-          {!review.thumbnailUrl.secure_url && (
-            <CldUploadButton
-              className="btn2"
-              uploadPreset="wkmh2srv"
-              onSuccess={handleThumbnailUpload}
-            />
-          )}
-          {review.thumbnailUrl.secure_url && (
-            <button
-              className="btn2 "
-              onClick={(e) => removeImage(e, review.thumbnailUrl.public_id)}
-            >
-              Remove Thumbnail
-            </button>
-          )}
-
-          {/* {imageUrls.length > 0 &&
-            imageUrls.map((img) => (
-              <button
-                key={img.public_id}
-                className="btn2"
-                onClick={(e) => removeImage(e, img.public_id)}
-              >
-                Remove {img.secure_url}
-              </button>
-            ))} */}
         </div>
         <div className="mt-4 pb-4 w-full flex items-center justify-center border-accent">
           <button className="btn1" type="submit">

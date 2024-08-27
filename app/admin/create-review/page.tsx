@@ -8,6 +8,7 @@ import { redirect } from "next/navigation";
 export default async function CreateReview() {
 
   const session = await getServerSession(authOptions)
+  const cloudinaryPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
 
   let user;
   try {
@@ -24,7 +25,7 @@ export default async function CreateReview() {
 
   return (
     <Container>
-      <CreateReviewForm user={user} />
+      <CreateReviewForm user={user} cloudinaryPreset={cloudinaryPreset!} />
     </Container>
   );
 }
