@@ -3,31 +3,34 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "../api/auth/[...nextauth]/options";
 import Container from "@/components/Container";
-import ReviewCard from "@/components/ReviewCard";
+import ReviewCard from "@/components/reviews/ReviewCard";
 
-export default async function Review() {
+export default async function Reviews() {
   const session = await getServerSession(authOptions);
 
   let reviews;
-  let user;
-  try {
-    user = await prisma.user.findUnique({
-      where: { email: session?.user?.email as string },
-    });
-  } catch (error) {
-    console.log(error);
-  }
+  let user: any;
 
-  if (!user?.isAdmin) {
-    redirect("/");
-  } else {
+  if (session) {
     try {
-      reviews = await prisma.gameReview.findMany({
-        include: { comments: true },
+      user = await prisma.user.findUnique({
+        where: { email: session?.user?.email as string },
       });
     } catch (error) {
       console.log(error);
     }
+  } else {
+    user = {
+      isAdmin: false,
+    };
+  }
+
+  try {
+    reviews = await prisma.gameReview.findMany({
+      include: { comments: true },
+    });
+  } catch (error) {
+    console.log(error);
   }
 
   return (

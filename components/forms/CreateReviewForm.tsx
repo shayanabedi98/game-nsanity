@@ -28,6 +28,7 @@ type Review = {
   rating: number;
   thumbnailUrl: { secure_url: string; public_id: string };
   images?: string[];
+  videoUrl: string;
 };
 
 export default function CreateReviewForm({ user, cloudinaryPreset }: Props) {
@@ -42,9 +43,10 @@ export default function CreateReviewForm({ user, cloudinaryPreset }: Props) {
       secure_url: "",
       public_id: "",
     },
+    videoUrl: "",
     // images: [],
   });
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
     return () => {
@@ -164,8 +166,8 @@ export default function CreateReviewForm({ user, cloudinaryPreset }: Props) {
       });
       if (res.ok) {
         toast.success("Created Review");
-        router.push("/admin")
-        router.refresh()
+        router.push("/reviews");
+        router.refresh();
       }
     } catch (error) {
       toast.error("Something went wrong");
@@ -180,7 +182,7 @@ export default function CreateReviewForm({ user, cloudinaryPreset }: Props) {
       >
         <p className="text-xl font-semibold">Create Review</p>
         <div className="flex w-full flex-col gap-1">
-          <label htmlFor="title">Title</label>
+          <label htmlFor="title">Game Title</label>
           <input
             value={review.title}
             autoComplete="off"
@@ -214,8 +216,8 @@ export default function CreateReviewForm({ user, cloudinaryPreset }: Props) {
               // sources: ["local"],
               multiple: false,
               maxFiles: 1,
-              clientAllowedFormats: ["jpg", "jpeg"],
-              maxFileSize: 2500000, //2.5MB
+              clientAllowedFormats: ["jpg", "jpeg", "png"],
+              maxFileSize: 4000000, //4.0MB
             }}
           />
           {review.thumbnailUrl.secure_url && !showCloudinary && (
@@ -243,6 +245,7 @@ export default function CreateReviewForm({ user, cloudinaryPreset }: Props) {
                 )}
               </div>
               <textarea
+              className="min-h-40 text-sm"
                 autoComplete="off"
                 required
                 value={review.paragraphs[index]}
@@ -251,6 +254,7 @@ export default function CreateReviewForm({ user, cloudinaryPreset }: Props) {
                 }}
                 name="paragraphs"
               />
+              <p className="text-sm">{review.paragraphs[index].length} characters</p>
             </div>
           ))}
         </div>
@@ -271,6 +275,20 @@ export default function CreateReviewForm({ user, cloudinaryPreset }: Props) {
             max={10}
             step={0.1}
             name="rating"
+          />
+        </div>
+        <div className="flex w-full flex-col gap-1">
+          <label htmlFor="videoUrl">Video URL</label>
+          <input
+            value={review.videoUrl}
+            autoComplete="off"
+            placeholder="https://youtube.com/..."
+            required
+            onChange={(e) => {
+              handleChange(e.target.name, e.target.value);
+            }}
+            type="text"
+            name="videoUrl"
           />
         </div>
         <div className="mt-4 pb-4 w-full flex items-center justify-center border-accent">

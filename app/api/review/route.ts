@@ -26,6 +26,7 @@ export async function POST(req: Request) {
         paragraphs: review.paragraphs,
         rating: parseFloat(review.rating),
         thumbnailUrl: review.thumbnailUrl,
+        videoUrl: review.videoUrl
       },
     });
     console.log("Created review");

@@ -14,6 +14,7 @@ type Props = {
     id: string;
     title: string;
     rating: number;
+    videoUrl: string;
     thumbnailUrl: {
       secure_url: string;
       public_id: string;
@@ -77,6 +78,7 @@ export default function ReviewCard({ review, adminControls }: Props) {
       </div>
       <div className="flex items-center justify-center relative w-full h-full aspect-square">
         <Image
+          priority
           src={review.thumbnailUrl.secure_url}
           className="object-cover w-full h-full"
           alt=""
