@@ -26,7 +26,7 @@ export async function POST(req: Request) {
         paragraphs: review.paragraphs,
         rating: parseFloat(review.rating),
         thumbnailUrl: review.thumbnailUrl,
-        videoUrl: review.videoUrl
+        videoUrl: review.videoUrl,
       },
     });
     console.log("Created review");
@@ -61,6 +61,40 @@ export async function DELETE(req: Request) {
   } catch (error) {
     console.log(error);
     return NextResponse.json({ message: "Could not delete review" });
+  }
+}
+
+export async function PUT(req: Request) {
+  const { review } = await req.json();
+  const session = await getServerSession(authOptions);
+  let user;
+  try {
+    user = await prisma.user.findUnique({
+      where: { email: session?.user?.email as string },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+  if (!session || !user?.isAdmin) {
+    return NextResponse.json({ message: "Unauthenticated" }, { status: 400 });
+  }
+
+  try {
+    const updateReview = await prisma.gameReview.update({
+      where: { id: review.id },
+      data: {
+        title: review.title,
+        author: review.author,
+        paragraphs: review.paragraphs,
+        rating: parseFloat(review.rating),
+        thumbnailUrl: review.thumbnailUrl,
+        videoUrl: review.videoUrl,
+      },
+    });
+    return NextResponse.json(updateReview);
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json({ message: "Could not edit review" });
   }
 }
 

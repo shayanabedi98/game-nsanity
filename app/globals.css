@@ -30,6 +30,10 @@ body {
   @apply text-base;
 }
 
+.register input, .register textarea {
+  @apply placeholder:text-neutral-300;
+}
+
 .register textarea {
   @apply rounded-sm bg-accent text-white px-1;
 }

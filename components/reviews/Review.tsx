@@ -1,6 +1,7 @@
 import { formatMongoDate } from "@/utils/formatDate";
 import Image from "next/image";
 import Link from "next/link";
+import CommentSection from "./CommentsSection";
 
 type Props = {
   user: { image: string | null };
@@ -20,16 +21,31 @@ type Props = {
       gameReviewId: string | null;
       text: string;
       userId: string;
+      author: {
+        name: string | null,
+        id: string
+        image: string | null
+    }
     }[];
   };
+  session: any;
+  signInUser:
+    | {
+        id: string;
+        name: string | null;
+        email: string | null;
+        image: string | null;
+      }
+    | null
+    | undefined;
 };
 
-export default function Review({ review, user }: Props) {
+export default function Review({ review, user, session, signInUser }: Props) {
   return (
-    <div className="flex flex-col gap-10 items-center bg-neutral-900 p-10 shadow-xl rounded-md">
+    <div className="flex flex-col gap-10 items-center p-10 rounded-md">
       <div className="flex flex-col items-center gap-3">
         <h1 className="font-bold text-4xl text-primary">
-          Here&apos; a Short Review of {review.title}
+          Here&apos;s a Short Review of {review.title}
         </h1>
         <Image
           src={user.image || "/assets/avatar.png"}
@@ -54,7 +70,9 @@ export default function Review({ review, user }: Props) {
 
       <div className="flex flex-col gap-5 leading-relaxed tracking-wide">
         {review.paragraphs
-          .filter((_, _index) => review.paragraphs.length >= 7 ? _index < 3 : _index < 1 )
+          .filter((_, _index) =>
+            review.paragraphs.length >= 7 ? _index < 3 : _index < 1
+          )
           .map((p, index) => (
             <p key={index}>{p}</p>
           ))}
@@ -69,7 +87,9 @@ export default function Review({ review, user }: Props) {
       </div>
       <div className="flex flex-col gap-5 leading-relaxed tracking-wide">
         {review.paragraphs
-          .filter((_, _index) => review.paragraphs.length >= 7 ? _index >= 3 : _index >= 1 )
+          .filter((_, _index) =>
+            review.paragraphs.length >= 7 ? _index >= 3 : _index >= 1
+          )
           .map((p, index) => (
             <p key={index}>{p}</p>
           ))}
@@ -92,6 +112,14 @@ export default function Review({ review, user }: Props) {
             Watch on YouTube
           </Link>
         </p>
+      </div>
+      <div>
+        <CommentSection
+          gameReviewId={review.id}
+          session={session}
+          comments={review.comments}
+          signInUser={signInUser}
+        />
       </div>
     </div>
   );

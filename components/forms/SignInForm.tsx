@@ -2,7 +2,7 @@
 
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
 import toast from "react-hot-toast";
 import { FaEye, FaGoogle } from "react-icons/fa";
@@ -15,6 +15,8 @@ export default function SignInForm() {
   const [showPassword, setShowPassword] = useState(false);
 
   const router = useRouter();
+  const searchParams = useSearchParams()
+  const callbackUrl = searchParams.get('callbackUrl') || '/';
 
   const handleChange = (dataProp: string, value: string) => {
     setData((prev) => ({ ...prev, [dataProp]: value }));
@@ -36,7 +38,8 @@ export default function SignInForm() {
       });
 
       if (res?.ok) {
-        router.push("/");
+        router.push(callbackUrl);
+        router.refresh()
       } else if (res) {
         toast.error("Invalid email or password");
       } else {
@@ -94,7 +97,7 @@ export default function SignInForm() {
         </div>
       </form>
       <div className="flex-col gap-2 mt-4 w-full flex items-center justify-center border-accent">
-        <button onClick={() => signIn("google")} className="btn2 gap-2">
+        <button onClick={() => signIn("google", {callbackUrl})} className="btn2 gap-2">
           <FaGoogle className="text-2xl" /> Continue with Google
         </button>
         <span>
