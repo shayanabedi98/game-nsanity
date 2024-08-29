@@ -50,11 +50,13 @@ export default function ReviewCard({ review, adminControls }: Props) {
   };
 
   return (
-    <div className="w-full gap-4 h-64 border-b border-accent flex items-center justify-between">
-      <div className="w-full flex-col py-4 gap-4 flex justify-between h-full">
-        <h1 className="text-3xl font-bold">{review.title}</h1>
+    <div className="w-full gap-4 h-64 border-b-2 shadow-lg bg-neutral-900 border-accent flex items-center justify-between">
+      <div className="w-full flex-col py-4 px-4 gap-4 flex justify-between h-full">
+        <h1 className="text-3xl font-extrabold">{review.title} Review</h1>
         <p className="break-all">{truncateText(review.paragraphs[0])}</p>
-        <p>{review.author}</p>
+        <p>
+          Written by <span className="font-bold">{review.author}</span>
+        </p>
         <div className="flex justify-between">
           <Link
             className="font-semibold btn1"

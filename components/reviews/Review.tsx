@@ -21,6 +21,7 @@ type Props = {
       gameReviewId: string | null;
       text: string;
       userId: string;
+      createdAt: Date
       author: {
         name: string | null,
         id: string

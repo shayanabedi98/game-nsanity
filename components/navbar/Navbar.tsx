@@ -1,11 +1,11 @@
 "use client";
 
 import { IoLogoGameControllerB } from "react-icons/io";
-import Container from "./Container";
+import Container from "../Container";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import { FaYoutube } from "react-icons/fa";
-import NavbarLinks from "./navbar/NavbarLinks";
+import NavbarLinks from "./NavbarLinks";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -45,6 +45,7 @@ export default function Navbar() {
           <div className="flex items-center gap-4 font-semibold">
             <NavbarLinks
               content={<FaYoutube />}
+              _blank={true}
               href="https://www.youtube.com/@gamensanity"
               extraStyles="text-3xl"
             />

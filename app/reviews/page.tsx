@@ -35,7 +35,7 @@ export default async function Reviews() {
 
   return (
     <Container>
-      <div>
+      <div className="flex flex-col gap-4">
         {reviews?.map((review) => (
           <div key={review.id}>
             <ReviewCard adminControls={user.isAdmin} review={review} />

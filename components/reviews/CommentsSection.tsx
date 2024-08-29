@@ -11,6 +11,7 @@ type Props = {
     gameReviewId: string | null;
     userId: string;
     text: string;
+    createdAt: Date
     author: {
       name: string | null;
       id: string;
@@ -92,6 +93,7 @@ export default function CommentSection({
         <div className="w-full flex flex-col">
           {comments.map((c, index) => (
             <Comment
+              createdAt={c.createdAt}
               name={c.author.name || "Anonymous"}
               key={index}
               image={c.author.image || "/assets/avatar.png"}
