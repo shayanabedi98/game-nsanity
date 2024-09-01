@@ -18,12 +18,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`font bg-bg`}>
+      <body className={`font bg-secondary`}>
         <div className="flex flex-col min-h-screen">
           <NextAuthProvider>
             <ContentWarning />
             <Navbar />
-            <main className="my-20 flex-grow">{children}</main>
+            <main className="flex-grow">{children}</main>
             <Footer />
             <Toaster />
           </NextAuthProvider>

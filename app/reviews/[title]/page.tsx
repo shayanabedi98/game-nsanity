@@ -23,7 +23,7 @@ export default async function ReviewContainer({ params }: Props) {
               select: {
                 id: true,
                 name: true,
-                image: true
+                image: true,
               },
             },
           },
@@ -44,15 +44,17 @@ export default async function ReviewContainer({ params }: Props) {
   }
 
   return (
-    <Container>
-      {review && user && (
-        <Review
-          review={review}
-          user={user}
-          session={session}
-          signInUser={signInUser}
-        />
-      )}
-    </Container>
+    <div className="mt-32 mb-20">
+      <Container>
+        {review && user && (
+          <Review
+            review={review}
+            user={user}
+            session={session}
+            signInUser={signInUser}
+          />
+        )}
+      </Container>
+    </div>
   );
 }

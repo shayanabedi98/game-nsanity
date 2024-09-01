@@ -1,7 +1,36 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #222222 #000000;
+}
+
+body {
+  @apply text-white;
+}
 
 *,
 *::before,
@@ -14,12 +43,8 @@
   /* font-family: "Lato", sans-serif; */
 }
 
-.font {
-  font-family: "Lato", sans-serif;
-}
-
-body {
-  @apply text-white;
+.open-sans {
+  font-family: "Open Sans", sans-serif;
 }
 
 .register input {
@@ -30,7 +55,8 @@ body {
   @apply text-base;
 }
 
-.register input, .register textarea {
+.register input,
+.register textarea {
   @apply placeholder:text-neutral-300;
 }
 
@@ -39,9 +65,17 @@ body {
 }
 
 .btn1 {
-  @apply bg-primary font-bold px-2 py-1 flex items-center justify-center w-full h-12 rounded-sm text-bg lg:hover:bg-accent lg:hover:text-white transition;
+  @apply bg-bg border-2 border-secondary text-secondary font-bold px-2 py-1 flex items-center justify-center w-full h-12 rounded-lg lg:hover:bg-accent lg:hover:text-white transition;
 }
 
 .btn2 {
-  @apply bg-white font-bold px-2 py-1 flex items-center justify-center w-full h-12 rounded-sm text-bg lg:hover:bg-accent lg:hover:text-white transition;
+  @apply bg-white font-bold px-2 py-1 flex items-center justify-center w-full h-12 rounded-lg text-bg lg:hover:bg-accent lg:hover:text-white transition;
+}
+
+.btn3 {
+  @apply bg-red-500 border-2 border-secondary text-secondary font-bold px-2 py-1 flex items-center justify-center w-full h-12 rounded-lg lg:hover:bg-accent lg:hover:text-white transition;
+}
+
+.shadow-custom {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
 }

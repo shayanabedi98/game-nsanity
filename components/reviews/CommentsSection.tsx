@@ -11,7 +11,7 @@ type Props = {
     gameReviewId: string | null;
     userId: string;
     text: string;
-    createdAt: Date
+    createdAt: Date;
     author: {
       name: string | null;
       id: string;
@@ -85,7 +85,7 @@ export default function CommentSection({
   };
 
   return (
-    <div className="register items-center rounded-sm border border-accent flex flex-col gap-2 w-96 min-h-80 py-2 px-4">
+    <div className="register items-center rounded-sm border border-accent flex flex-col bg-bg text-secondary gap-2 w-96 min-h-80 py-2 px-4">
       <h2 className="text-2xl font-bold w-full border-b border-accent py-2 text-center">
         Comments
       </h2>
@@ -122,7 +122,7 @@ export default function CommentSection({
           {session ? (
             <button
               type="submit"
-              className={`btn1 text-sm `}
+              className={`btn3 text-sm `}
               style={{
                 height: "35px",
               }}
@@ -132,7 +132,7 @@ export default function CommentSection({
           ) : (
             <button
               onClick={handleSignIn}
-              className={`btn1 text-sm `}
+              className={`btn3 text-sm `}
               style={{
                 height: "35px",
               }}

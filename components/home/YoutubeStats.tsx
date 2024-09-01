@@ -1,5 +1,6 @@
 "use client";
 
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useEffect, useState } from "react";
 
 export default function YoutubeStats() {
@@ -19,7 +20,13 @@ export default function YoutubeStats() {
     fetchSubs();
   }, []);
 
-  return <div>
-    Page currently has {subscriberCount} Subs!
-  </div>;
+  return (
+    <div className="text-[]">
+      {subscriberCount ? (
+        subscriberCount
+      ) : (
+        <AiOutlineLoading3Quarters className="animate-spin" />
+      )}
+    </div>
+  );
 }

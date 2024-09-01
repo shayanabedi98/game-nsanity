@@ -33,7 +33,7 @@ export default function Navbar() {
   }, [showUserMenu]);
 
   return (
-    <header className="bg-neutral-900 shadow-md">
+    <header className="bg-neutral-900 shadow-md h-20 fixed w-full flex items-center z-30">
       <Container>
         <nav className="flex items-center justify-between py-4">
           <Link href={"/"} className="flex items-center work gap-2 ">

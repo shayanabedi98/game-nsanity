@@ -21,12 +21,12 @@ type Props = {
       gameReviewId: string | null;
       text: string;
       userId: string;
-      createdAt: Date
+      createdAt: Date;
       author: {
-        name: string | null,
-        id: string
-        image: string | null
-    }
+        name: string | null;
+        id: string;
+        image: string | null;
+      };
     }[];
   };
   session: any;
@@ -43,9 +43,9 @@ type Props = {
 
 export default function Review({ review, user, session, signInUser }: Props) {
   return (
-    <div className="flex flex-col gap-10 items-center p-10 rounded-md">
+    <div className="flex flex-col gap-10 items-center text-bg p-10 rounded-md open-sans">
       <div className="flex flex-col items-center gap-3">
-        <h1 className="font-bold text-4xl text-primary">
+        <h1 className="font-bold text-4xl">
           Here&apos;s a Short Review of {review.title}
         </h1>
         <Image
@@ -96,8 +96,8 @@ export default function Review({ review, user, session, signInUser }: Props) {
           ))}
       </div>
       <div className="flex flex-col gap-4 items-center">
-        <p className="text-2xl">{review.title}</p>
-        <div className="flex items-center justify-center h-44 w-44 bg-primary text-5xl font-bold rounded-full shadow-lg border-2">
+        <p className="text-2xl font-bold">{review.title}</p>
+        <div className="flex items-center justify-center h-44 w-44 bg-red-500 text-secondary text-5xl font-bold rounded-full shadow-lg border-2">
           {review.rating}
         </div>
       </div>
@@ -106,7 +106,7 @@ export default function Review({ review, user, session, signInUser }: Props) {
           Be sure to checkout the YouTube channel, where you can watch every
           review I have made.{" "}
           <Link
-            className="text-primary"
+            className="underline"
             target="_blank"
             href={"https://www.youtube.com/@gamensanity"}
           >

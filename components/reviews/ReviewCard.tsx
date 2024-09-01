@@ -7,6 +7,8 @@ import { FaTrashAlt } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { formatMongoDate } from "@/utils/formatDate";
+import Container from "../Container";
 
 type Props = {
   adminControls: boolean;
@@ -15,6 +17,7 @@ type Props = {
     title: string;
     rating: number;
     videoUrl: string;
+    createdAt: Date;
     thumbnailUrl: {
       secure_url: string;
       public_id: string;
@@ -50,16 +53,21 @@ export default function ReviewCard({ review, adminControls }: Props) {
   };
 
   return (
-    <div className="w-full gap-4 h-64 border-b-2 shadow-lg bg-neutral-900 border-accent flex items-center justify-between">
+    <div className="w-full shadow-custom gap-4 h-[320px] open-sans bg-stone-50 rounded-md text-bg flex items-center justify-between">
       <div className="w-full flex-col py-4 px-4 gap-4 flex justify-between h-full">
-        <h1 className="text-3xl font-extrabold">{review.title} Review</h1>
-        <p className="break-all">{truncateText(review.paragraphs[0])}</p>
+        <h1 className="text-3xl font-bold">{review.title} Review</h1>
+        <p className="break-words text-neutral-800">
+          {truncateText(review.paragraphs[0])}
+        </p>
         <p>
           Written by <span className="font-bold">{review.author}</span>
         </p>
+        <p className="text-sm italic">
+          Published on {formatMongoDate(review.createdAt)}
+        </p>
         <div className="flex justify-between">
           <Link
-            className="font-semibold btn1"
+            className="font-semibold btn3 text-xl"
             href={`/reviews/${review.title}`}
           >
             Read
@@ -82,12 +90,12 @@ export default function ReviewCard({ review, adminControls }: Props) {
         <Image
           priority
           src={review.thumbnailUrl.secure_url}
-          className="object-cover w-full h-full"
+          className="object-cover w-full h-full rounded-r-md"
           alt=""
           width={800}
           height={800}
         />
-        <div className="absolute font-bold text-4xl bg-primary h-16 w-16 flex items-center justify-center rounded-sm bg-opacity-85 border">
+        <div className="absolute font-bold text-4xl bg-red-500 text-secondary h-16 w-16 flex items-center justify-center rounded-sm bg-opacity-85 border">
           {review.rating}
         </div>
       </div>

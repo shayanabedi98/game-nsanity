@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import { authOptions } from "../api/auth/[...nextauth]/options";
 import Container from "@/components/Container";
 import ReviewCard from "@/components/reviews/ReviewCard";
+import Link from "next/link";
+import Hero from "@/components/Hero";
 
 export default async function Reviews() {
   const session = await getServerSession(authOptions);
@@ -28,20 +30,29 @@ export default async function Reviews() {
   try {
     reviews = await prisma.gameReview.findMany({
       include: { comments: true },
+      orderBy: { createdAt: "desc" },
     });
   } catch (error) {
     console.log(error);
   }
 
   return (
-    <Container>
-      <div className="flex flex-col gap-4">
-        {reviews?.map((review) => (
-          <div key={review.id}>
-            <ReviewCard adminControls={user.isAdmin} review={review} />
-          </div>
-        ))}
-      </div>
-    </Container>
+    <div className="mb-20">
+      <Hero content="Reviews" image="/assets/hero/1.webp" />
+      <Container>
+        <div className="flex flex-col gap-14">
+          {user.isAdmin && (
+            <Link className="btn1" href={"/admin/create-review"}>
+              Create Review
+            </Link>
+          )}
+          {reviews?.map((review) => (
+            <div key={review.id}>
+              <ReviewCard adminControls={user.isAdmin} review={review} />
+            </div>
+          ))}
+        </div>
+      </Container>
+    </div>
   );
 }
