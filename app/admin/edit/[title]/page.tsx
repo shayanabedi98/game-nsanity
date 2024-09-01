@@ -32,13 +32,15 @@ export default async function EditReview({
   }
 
   return (
-    <Container>
-      {reviewData && cloudinaryPreset && (
-        <EditReviewForm
-          cloudinaryPreset={cloudinaryPreset}
-          reviewData={reviewData}
-        />
-      )}
-    </Container>
+    <div className="mt-32 mb-20">
+      <Container>
+        {reviewData && cloudinaryPreset && (
+          <EditReviewForm
+            cloudinaryPreset={cloudinaryPreset}
+            reviewData={reviewData}
+          />
+        )}
+      </Container>
+    </div>
   );
 }

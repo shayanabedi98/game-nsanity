@@ -41,7 +41,7 @@ export default function ResetPasswordForm() {
       const data = await response.json();
       if (response.ok) {
         toast.success("Password reset successful");
-        setTimeout(() => router.push("/login"), 2000);
+        setTimeout(() => router.push("/sign-in"), 2000);
       } else {
         toast.error(data.error);
       }
@@ -56,7 +56,7 @@ export default function ResetPasswordForm() {
         onSubmit={handleSubmit}
         className="register w-full flex flex-col gap-2 items-center justify-center"
       >
-        <p className="text-xl font-semibold">ForgotPassword</p>
+        <p className="text-xl font-semibold">Update Password</p>
         <div className="flex w-full flex-col gap-1 relative">
           <label htmlFor="password">New Password</label>
           <input

@@ -21,7 +21,7 @@ export default function YoutubeStats() {
   }, []);
 
   return (
-    <div className="text-[]">
+    <div className="text-red-500 font-extrabold">
       {subscriberCount ? (
         subscriberCount
       ) : (

@@ -38,9 +38,9 @@ export default async function Reviews() {
 
   return (
     <div className="mb-20">
-      <Hero content="Reviews" image="/assets/hero/1.webp" />
+      <Hero content="REVIEWS" image="/assets/hero/1.webp" />
       <Container>
-        <div className="flex flex-col gap-14">
+        <div className="flex mt-32 flex-col gap-14">
           {user.isAdmin && (
             <Link className="btn1" href={"/admin/create-review"}>
               Create Review

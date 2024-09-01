@@ -46,7 +46,7 @@ export default function ForgotPasswordForm() {
         onSubmit={handleSubmit}
         className="register w-full flex flex-col gap-2 items-center justify-center"
       >
-        <p className="text-xl font-semibold">ForgotPassword</p>
+        <p className="text-xl font-semibold">Forgot Password</p>
         <div className="flex w-full flex-col gap-1">
           <label htmlFor="email">Email</label>
           <input

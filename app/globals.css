@@ -25,7 +25,7 @@
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #222222 #000000;
+  scrollbar-color: #727272 #000000;
 }
 
 body {
@@ -73,7 +73,7 @@ body {
 }
 
 .btn3 {
-  @apply bg-red-500 border-2 border-secondary text-secondary font-bold px-2 py-1 flex items-center justify-center w-full h-12 rounded-lg lg:hover:bg-accent lg:hover:text-white transition;
+  @apply bg-red-500 border-2 border-secondary text-secondary font-bold px-2 py-1 flex items-center justify-center w-full min-h-12 rounded-lg lg:hover:bg-accent lg:hover:text-white transition;
 }
 
 .shadow-custom {

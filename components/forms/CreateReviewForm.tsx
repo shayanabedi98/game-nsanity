@@ -175,7 +175,7 @@ export default function CreateReviewForm({ user, cloudinaryPreset }: Props) {
   };
 
   return (
-    <div className="flex flex-col items-center px-8 py-4 sm:w-96 w-full mx-auto justify-center bg-neutral-900 rounded-md shadow-lg">
+    <div className="flex flex-col items-center px-8 py-4 sm:w-[450px] w-full mx-auto justify-center bg-neutral-900 rounded-md shadow-lg">
       <form
         onSubmit={handleSubmit}
         className="register w-full flex flex-col gap-2 items-center justify-center"
@@ -245,7 +245,7 @@ export default function CreateReviewForm({ user, cloudinaryPreset }: Props) {
                 )}
               </div>
               <textarea
-              className="min-h-40 text-sm"
+                className="min-h-40 text-sm"
                 autoComplete="off"
                 required
                 value={review.paragraphs[index]}
@@ -254,7 +254,9 @@ export default function CreateReviewForm({ user, cloudinaryPreset }: Props) {
                 }}
                 name="paragraphs"
               />
-              <p className="text-sm">{review.paragraphs[index].length} characters</p>
+              <p className="text-sm">
+                {review.paragraphs[index].length} characters
+              </p>
             </div>
           ))}
         </div>

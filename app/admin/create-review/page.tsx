@@ -6,26 +6,27 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
 export default async function CreateReview() {
-
-  const session = await getServerSession(authOptions)
-  const cloudinaryPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
+  const session = await getServerSession(authOptions);
+  const cloudinaryPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
 
   let user;
   try {
     user = await prisma.user.findUnique({
-      where: {email: session?.user?.email as string}
-    })
+      where: { email: session?.user?.email as string },
+    });
   } catch (error) {
     console.log(error);
   }
 
   if (!user?.isAdmin) {
-    redirect("/")
+    redirect("/");
   }
 
   return (
-    <Container>
-      <CreateReviewForm user={user} cloudinaryPreset={cloudinaryPreset!} />
-    </Container>
+    <div className="mt-32 mb-20">
+      <Container>
+        <CreateReviewForm user={user} cloudinaryPreset={cloudinaryPreset!} />
+      </Container>
+    </div>
   );
 }

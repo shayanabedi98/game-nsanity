@@ -8,12 +8,13 @@ import { FaYoutube } from "react-icons/fa";
 import NavbarLinks from "./NavbarLinks";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function Navbar() {
+  const path = usePathname();
   const { data: session, status } = useSession();
   const [showUserMenu, setShowUserMenu] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
   const userMenu = useRef<null | HTMLDivElement>(null);
 
   useEffect(() => {
@@ -48,6 +49,7 @@ export default function Navbar() {
               _blank={true}
               href="https://www.youtube.com/@gamensanity"
               extraStyles="text-3xl"
+              youtube
             />
             <NavbarLinks content={"Home"} href="/" extraStyles="text-lg" />
             <NavbarLinks
@@ -58,6 +60,11 @@ export default function Navbar() {
             <NavbarLinks
               content={"Contact"}
               href="/contact"
+              extraStyles="text-lg"
+            />
+            <NavbarLinks
+              content={"Merch"}
+              href="/merch"
               extraStyles="text-lg"
             />
             {session?.user ? (
@@ -76,7 +83,8 @@ export default function Navbar() {
                 {showUserMenu && (
                   <div className="z-30 right-0 min-w-36 bg-black absolute flex flex-col items-center justify-center rounded-md shadow-md p-2 gap-4 top-10 rounded-tr-none">
                     <span>{session.user.email}</span>
-                    <button className="btn1"
+                    <button
+                      className="btn1"
                       onClick={() => {
                         signOut();
                       }}
@@ -86,10 +94,17 @@ export default function Navbar() {
                   </div>
                 )}
               </div>
-            ) : (
+            ) : path != "/register" && path != "/sign-in" ? (
               <div className="w-24">
-                <button className="btn1" onClick={() => router.push("/register")}>Join</button>
+                <button
+                  className="btn1"
+                  onClick={() => router.push("/register")}
+                >
+                  Join
+                </button>
               </div>
+            ) : (
+              <div className="w-24"></div>
             )}
           </div>
         </nav>
