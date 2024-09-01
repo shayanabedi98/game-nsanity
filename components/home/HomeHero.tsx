@@ -1,5 +1,6 @@
 import Image from "next/image";
 import YoutubeStats from "./YoutubeStats";
+import Link from "next/link";
 
 export default function HomeHero() {
   return (
@@ -18,6 +19,18 @@ export default function HomeHero() {
         <h2 className="flex items-center gap-4 text-4xl font-bold">
           THANK YOU FOR <YoutubeStats /> SUBSCRIBERS!
         </h2>
+        <div className="w-full flex gap-8 px-16">
+          <Link
+            target="_blank"
+            href={"https://www.youtube.com/@gamensanity"}
+            className="btn3"
+          >
+            YouTube
+          </Link>
+          <Link href={"/reviews"} className="btn2">
+            Reviews
+          </Link>
+        </div>
       </div>
     </div>
   );

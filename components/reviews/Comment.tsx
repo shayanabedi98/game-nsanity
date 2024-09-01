@@ -52,7 +52,7 @@ export default function Comment({
           router.refresh();
         }
       } catch (error) {
-        toast.error("Something went wrong, try again later.")
+        toast.error("Something went wrong, try again later.");
       }
     }
   };
