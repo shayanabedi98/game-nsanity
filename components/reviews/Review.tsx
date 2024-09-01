@@ -18,6 +18,7 @@ type Props = {
     createdAt: Date;
     author: string;
     comments: {
+      id: string;
       gameReviewId: string | null;
       text: string;
       userId: string;

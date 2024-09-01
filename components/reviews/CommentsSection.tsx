@@ -8,6 +8,7 @@ import Comment from "./Comment";
 type Props = {
   session: any;
   comments: {
+    id: string
     gameReviewId: string | null;
     userId: string;
     text: string;
@@ -93,6 +94,9 @@ export default function CommentSection({
         <div className="w-full flex flex-col">
           {comments.map((c, index) => (
             <Comment
+              id={c.id}
+              commentUserId={c.userId}
+              signInUserId={signInUser?.id}
               createdAt={c.createdAt}
               name={c.author.name || "Anonymous"}
               key={index}
