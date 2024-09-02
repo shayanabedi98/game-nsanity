@@ -16,12 +16,12 @@ export default async function Register() {
     <div className="flex items-center justify-center h-screen">
       <Image
         priority
-        className="object-cover"
-        src={"/assets/hero/3.webp"}
+        className="object-cover max-sm:object-[-400px]"
+        src={"/assets/hero/2.webp"}
         alt="Video game screenshot of scenic view"
         fill
       />
-      <div className="absolute">
+      <div className="absolute w-full">
         <Container>
           <RegisterForm />
         </Container>

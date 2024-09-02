@@ -29,7 +29,7 @@ export default function ContactForm({ accessCode }: { accessCode: string }) {
   };
 
   return (
-    <div className="px-8 py-4 w-full register mx-auto flex flex-col items-center justify-center gap-8 bg-bg rounded-l-md shadow-lg">
+    <div className="px-8 py-4 w-full register mx-auto flex flex-col items-center justify-center gap-8 bg-bg max-md:rounded-b-md md:rounded-l-md shadow-lg">
       <h2 className="text-2xl font-semibold">
         For all inquiries, fill out this contact form and we will get back to
         you shortly.

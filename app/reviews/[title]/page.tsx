@@ -44,7 +44,7 @@ export default async function ReviewContainer({ params }: Props) {
   }
 
   return (
-    <div className="mt-32 mb-20">
+    <div className="mt-32 mb-32">
       <Container>
         {review && user && (
           <Review

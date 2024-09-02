@@ -17,11 +17,12 @@ export default async function ForgotPassword() {
       <Image
         priority
         className="object-cover"
-        src={"/assets/hero/7.webp"}
+        src={"/assets/hero/13.jpg"}
         alt="Video game screenshot of scenic view"
         fill
+        quality={85}
       />
-      <div className="absolute">
+      <div className="absolute w-full">
         <Container>
           <ForgotPasswordForm />
         </Container>

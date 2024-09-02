@@ -32,7 +32,7 @@ export default async function EditReview({
   }
 
   return (
-    <div className="mt-32 mb-20">
+    <div className="mt-32 mb-32">
       <Container>
         {reviewData && cloudinaryPreset && (
           <EditReviewForm

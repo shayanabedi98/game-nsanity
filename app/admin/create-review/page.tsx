@@ -23,7 +23,7 @@ export default async function CreateReview() {
   }
 
   return (
-    <div className="mt-32 mb-20">
+    <div className="mt-32 mb-32">
       <Container>
         <CreateReviewForm user={user} cloudinaryPreset={cloudinaryPreset!} />
       </Container>

@@ -20,7 +20,7 @@ export default async function SignIn() {
         alt="Video game screenshot of scenic view"
         fill
       />
-      <div className="absolute">
+      <div className="absolute w-full">
         <Container>
           <SignInForm />
         </Container>

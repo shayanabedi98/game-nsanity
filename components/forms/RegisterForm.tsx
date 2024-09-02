@@ -49,7 +49,7 @@ export default function RegisterForm() {
   };
 
   return (
-    <div className="flex flex-col items-center px-8 py-4 sm:w-96 w-full mx-auto justify-center bg-neutral-900 rounded-md shadow-lg">
+    <div className="flex flex-col items-center px-8 py-4 sm:w-96 mx-auto justify-center bg-neutral-900 rounded-md shadow-lg">
       <form
         onSubmit={handleSubmit}
         className="register w-full flex flex-col gap-2 items-center justify-center"
@@ -113,7 +113,7 @@ export default function RegisterForm() {
         </button>
         <span>
           Already have an account?{" "}
-          <Link className="text-primary" href={"/sign-in"}>
+          <Link className="text-red-500" href={"/sign-in"}>
             Sign in
           </Link>
         </span>

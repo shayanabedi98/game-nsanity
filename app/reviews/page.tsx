@@ -37,7 +37,7 @@ export default async function Reviews() {
   }
 
   return (
-    <div className="mb-20">
+    <div className="mb-32">
       <Hero content="REVIEWS" image="/assets/hero/1.webp" />
       <Container>
         <div className="flex mt-32 flex-col gap-14">

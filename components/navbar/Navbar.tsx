@@ -9,6 +9,8 @@ import NavbarLinks from "./NavbarLinks";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
+import toast from "react-hot-toast";
 
 export default function Navbar() {
   const path = usePathname();
@@ -16,6 +18,7 @@ export default function Navbar() {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const router = useRouter();
   const userMenu = useRef<null | HTMLDivElement>(null);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   useEffect(() => {
     const closeMenu = (e: MouseEvent) => {
@@ -33,17 +36,23 @@ export default function Navbar() {
     };
   }, [showUserMenu]);
 
+  const closeNav = () => {
+    setTimeout(() => {
+      setShowMobileMenu(false);
+    }, 1000);
+  };
+
   return (
-    <header className="bg-neutral-900 shadow-md h-20 fixed w-full flex items-center z-30">
+    <header className="fixed z-30 flex h-20 w-full items-center bg-neutral-900 shadow-md">
       <Container>
         <nav className="flex items-center justify-between py-4">
-          <Link href={"/"} className="flex items-center work gap-2 ">
-            <IoLogoGameControllerB className="text-4xl bg-accent -rotate-12 rounded-full p-1 text-primary" />
+          <Link href={"/"} className="work flex items-center gap-2">
+            <IoLogoGameControllerB className="-rotate-12 rounded-full bg-accent p-1 text-4xl text-primary" />
             <p className="text-2xl font-bold">
               GAME <span className="text-primary">NSANITY</span>
             </p>
           </Link>
-          <div className="flex items-center gap-4 font-semibold">
+          <div className="flex items-center gap-4 font-semibold max-lg:hidden">
             <NavbarLinks
               content={<FaYoutube />}
               _blank={true}
@@ -76,12 +85,12 @@ export default function Navbar() {
                   priority
                   src={session.user.image || "/assets/avatar.png"}
                   alt="user display picture"
-                  className="cursor-pointer w-8 h-8 rounded-full border-2"
+                  className="h-8 w-8 cursor-pointer rounded-full border-2"
                   width={26}
                   height={26}
                 />
                 {showUserMenu && (
-                  <div className="z-30 right-0 min-w-36 bg-black absolute flex flex-col items-center justify-center rounded-md shadow-md p-2 gap-4 top-10 rounded-tr-none">
+                  <div className="absolute right-0 top-10 z-30 flex min-w-36 flex-col items-center justify-center gap-4 rounded-md rounded-tr-none bg-black p-2 shadow-md">
                     <span>{session.user.email}</span>
                     <button
                       className="btn1"
@@ -107,6 +116,95 @@ export default function Navbar() {
               <div className="w-24"></div>
             )}
           </div>
+          {/* Mobile Menu */}
+          <div
+            className="z-30 flex flex-col gap-1 lg:hidden"
+            onClick={() => setShowMobileMenu(!showMobileMenu)}
+          >
+            <motion.div
+              className="z-20 h-[2px] w-[25px] bg-secondary"
+              initial={{ position: "relative" }}
+              animate={{
+                top: showMobileMenu ? "3px" : 0,
+                rotate: showMobileMenu ? 45 : 0,
+              }}
+            ></motion.div>
+            <AnimatePresence mode="popLayout">
+              {!showMobileMenu && (
+                <motion.div
+                  className="z-20 h-[2px] w-[25px] bg-secondary"
+                  initial={{ opacity: 1 }}
+                  exit={{ opacity: 0, position: "relative" }}
+                ></motion.div>
+              )}
+            </AnimatePresence>
+            <motion.div
+              className="z-20 h-[2px] w-[25px] bg-secondary"
+              initial={{ position: "relative" }}
+              animate={{
+                bottom: showMobileMenu ? "3px" : 0,
+                rotate: showMobileMenu ? -45 : 0,
+              }}
+            ></motion.div>
+          </div>
+          <AnimatePresence>
+            {showMobileMenu && (
+              <motion.div
+                className="fixed left-0 top-0 flex h-screen w-full flex-col items-center justify-center gap-4 bg-bg px-4 text-lg font-semibold"
+                initial={{ top: "-100%" }}
+                animate={{ top: 0 }}
+                exit={{ top: "100%" }}
+              >
+                <NavbarLinks
+                  closeNav={() => setShowMobileMenu(false)}
+                  content="Home"
+                  href="/"
+                />
+                <NavbarLinks
+                  closeNav={() => setShowMobileMenu(false)}
+                  content="Reviews"
+                  href="/reviews"
+                />
+                <NavbarLinks
+                  closeNav={() => setShowMobileMenu(false)}
+                  content="Contact"
+                  href="/contact"
+                />
+                <NavbarLinks
+                  closeNav={() => setShowMobileMenu(false)}
+                  content="Merch"
+                  href="/merch"
+                />
+                {session?.user ? (
+                  <div>
+                    <div
+                      onClick={() => {
+                        signOut();
+                        setShowMobileMenu(false);
+                      }}
+                    >
+                      Sign Out
+                    </div>
+                    <div className="text-sm">{session.user.email}</div>
+                  </div>
+                ) : (
+                  <NavbarLinks
+                    closeNav={() => setShowMobileMenu(false)}
+                    content="Join"
+                    href="/register"
+                  />
+                )}
+                <NavbarLinks
+                  closeNav={() => setShowMobileMenu(false)}
+                  content={<FaYoutube />}
+                  href="https://www.youtube.com/@gamensanity"
+                  youtube
+                  _blank
+                  extraStyles="text-4xl"
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </nav>
       </Container>
     </header>

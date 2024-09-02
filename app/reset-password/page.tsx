@@ -12,7 +12,7 @@ export default function ResetPassword() {
         alt="Video game screenshot of scenic view"
         fill
       />
-      <div className="absolute">
+      <div className="absolute w-full">
         <Container>
           <ResetPasswordForm />
         </Container>

@@ -102,12 +102,12 @@ export default function SignInForm() {
         </button>
         <span>
           Don&apos;t have an account?{" "}
-          <Link className="text-primary" href={"/register"}>
+          <Link className="text-red-500" href={"/register"}>
             Sign up
           </Link>
         </span>
         <span>
-        <Link className="text-primary" href={"/forgot-password"}>
+        <Link className="text-red-500" href={"/forgot-password"}>
             Forgot Password?
           </Link>
         </span>

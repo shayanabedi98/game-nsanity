@@ -53,8 +53,8 @@ export default function ReviewCard({ review, adminControls }: Props) {
   };
 
   return (
-    <div className="w-full shadow-custom gap-4 h-[320px] open-sans bg-stone-50 rounded-md text-bg flex items-center justify-between">
-      <div className="w-full flex-col py-4 px-4 gap-4 flex justify-between h-full">
+    <div className="shadow-custom open-sans flex w-full flex-col items-center justify-between gap-4 rounded-md bg-white text-bg sm:h-[450px] sm:flex-row lg:h-[380px] xl:h-[320px]">
+      <div className="flex h-full w-full flex-col justify-between gap-4 px-4 py-4">
         <h1 className="text-3xl font-bold">{review.title} Review</h1>
         <p className="break-words text-neutral-800">
           {truncateText(review.paragraphs[0])}
@@ -67,14 +67,14 @@ export default function ReviewCard({ review, adminControls }: Props) {
         </p>
         <div className="flex justify-between">
           <Link
-            className="font-semibold btn3 text-xl"
+            className="btn3 text-xl font-semibold"
             href={`/reviews/${review.title}`}
           >
             Read
           </Link>
-          <div className="w-full flex justify-center">
+          <div className="flex w-full justify-center">
             {adminControls && (
-              <div className="flex gap-4 text-xl items-center">
+              <div className="flex items-center gap-4 text-xl">
                 <Link href={`/admin/edit/${review.title}`}>
                   <FaEdit />
                 </Link>
@@ -86,16 +86,17 @@ export default function ReviewCard({ review, adminControls }: Props) {
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-center relative w-full h-full aspect-square">
+      <div className="relative flex aspect-square h-full w-full items-center justify-center">
         <Image
           priority
           src={review.thumbnailUrl.secure_url}
-          className="object-cover w-full h-full rounded-r-md"
+          className="h-full w-full max-sm:rounded-b-md sm:rounded-r-md object-cover"
           alt=""
+          quality={85}
           width={800}
           height={800}
         />
-        <div className="absolute font-bold text-4xl bg-red-500 text-secondary h-16 w-16 flex items-center justify-center rounded-sm bg-opacity-85 border">
+        <div className="absolute flex h-16 w-16 items-center justify-center rounded-sm border bg-red-500 bg-opacity-85 text-4xl font-bold text-secondary">
           {review.rating}
         </div>
       </div>
