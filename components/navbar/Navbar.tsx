@@ -43,11 +43,11 @@ export default function Navbar() {
   };
 
   return (
-    <header className="fixed z-30 flex h-14 sm:h-20 w-full items-center bg-neutral-900 shadow-md">
+    <header className="fixed z-30 flex h-14 w-full items-center bg-neutral-900 shadow-md sm:h-20">
       <Container>
         <nav className="flex items-center justify-between py-4">
           <Link href={"/"} className="work flex items-center gap-2">
-            <IoLogoGameControllerB className="-rotate-12 rounded-full bg-accent p-1 text-4xl text-primary" />
+            <IoLogoGameControllerB className="-rotate-12 rounded-full bg-red-500 p-1 text-4xl text-secondary" />
             <p className="text-2xl font-bold">
               GAME <span className="text-primary">NSANITY</span>
             </p>
@@ -118,7 +118,7 @@ export default function Navbar() {
           </div>
           {/* Mobile Menu */}
           <div
-            className="z-30 flex flex-col gap-1 lg:hidden"
+            className="z-30 flex h-[24px] cursor-pointer flex-col items-center justify-center gap-1 lg:hidden"
             onClick={() => setShowMobileMenu(!showMobileMenu)}
           >
             <motion.div

@@ -53,9 +53,11 @@ export default function ReviewCard({ review, adminControls }: Props) {
   };
 
   return (
-    <div className="shadow-custom open-sans flex w-full flex-col items-center justify-between gap-4 rounded-md bg-white text-bg sm:h-[450px] sm:flex-row lg:h-[380px] xl:h-[320px]">
+    <div className="shadow-custom open-sans flex w-full flex-col items-center justify-between gap-4 rounded-md border-bg bg-neutral-300 sm:bg-white text-bg sm:h-[450px] sm:flex-row lg:h-[380px] xl:h-[320px]">
       <div className="flex h-full w-full flex-col justify-between gap-4 px-4 py-4">
-        <h1 className="text-3xl font-bold">{review.title} Review</h1>
+        <h1 className="text-2xl font-bold sm:text-3xl">
+          {review.title} Review
+        </h1>
         <p className="break-words text-neutral-800">
           {truncateText(review.paragraphs[0])}
         </p>
@@ -86,11 +88,11 @@ export default function ReviewCard({ review, adminControls }: Props) {
           </div>
         </div>
       </div>
-      <div className="relative flex aspect-square h-full w-full items-center justify-center">
+      <div className="relative flex h-full w-full items-center justify-center md:aspect-square">
         <Image
           priority
           src={review.thumbnailUrl.secure_url}
-          className="h-full w-full max-sm:rounded-b-md sm:rounded-r-md object-cover"
+          className="min-h-72 w-full object-cover max-sm:rounded-b-md sm:h-full sm:rounded-r-md"
           alt=""
           quality={85}
           width={800}

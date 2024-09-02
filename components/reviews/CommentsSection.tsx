@@ -8,7 +8,7 @@ import Comment from "./Comment";
 type Props = {
   session: any;
   comments: {
-    id: string
+    id: string;
     gameReviewId: string | null;
     userId: string;
     text: string;
@@ -86,12 +86,12 @@ export default function CommentSection({
   };
 
   return (
-    <div className="register items-center rounded-sm border border-accent flex flex-col bg-bg text-secondary gap-2 w-96 min-h-80 py-2 px-4">
-      <h2 className="text-2xl font-bold w-full border-b border-accent py-2 text-center">
+    <div className="register flex min-h-80 mx-auto w-full sm:w-96 flex-col items-center gap-2 rounded-sm border border-accent bg-bg px-4 py-2 text-secondary">
+      <h2 className="w-full border-b border-accent py-2 text-center text-2xl font-bold">
         Comments
       </h2>
       {comments.length > 0 ? (
-        <div className="w-full flex flex-col">
+        <div className="flex w-full flex-col">
           {comments.map((c, index) => (
             <Comment
               id={c.id}
@@ -110,7 +110,7 @@ export default function CommentSection({
           <span className="text-sm">No comments to show</span>
         </div>
       )}
-      <form onSubmit={handleSubmit} className="w-full flex gap-2">
+      <form onSubmit={handleSubmit} className="flex w-full gap-2">
         <input
           maxLength={100}
           disabled={!session}
@@ -126,7 +126,7 @@ export default function CommentSection({
           {session ? (
             <button
               type="submit"
-              className={`btn3 text-sm `}
+              className={`btn3 text-sm`}
               style={{
                 height: "35px",
               }}
@@ -136,7 +136,7 @@ export default function CommentSection({
           ) : (
             <button
               onClick={handleSignIn}
-              className={`btn3 text-sm `}
+              className={`btn3 text-sm`}
               style={{
                 height: "35px",
               }}

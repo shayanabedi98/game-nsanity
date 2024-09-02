@@ -58,9 +58,9 @@ export default function Comment({
   };
 
   return (
-    <div className="relative flex flex-col gap-1 py-2 border-b-2 border-neutral-700 w-full">
-      <div className="flex gap-2 items-center justify-between">
-        <div className="flex gap-2 items-center">
+    <div className="relative flex w-full flex-col gap-1 border-b-2 border-neutral-700 py-2">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-center gap-2">
           <Image
             src={image}
             alt="User profile picture"
@@ -68,27 +68,27 @@ export default function Comment({
             height={30}
             className="rounded-full border-2"
           />
-          <p className="text-neutral-300 font-bold">{name}</p>
+          <p className="font-bold text-neutral-300">{name}</p>
         </div>
-        <div className="text-sm italic text-neutral-300">
+        <div className="text-sm italic text-neutral-300 max-sm:text-xs">
           {formatMongoDate(createdAt)}
         </div>
       </div>
       <div className="break-words">
-        <p className="pl-1">{text}</p>
+        <p className="">{text}</p>
       </div>
       {signInUserId == commentUserId && (
         <div>
           <div
             onClick={handleOptions}
-            className="cursor-pointer absolute -right-2 text-3xl bottom-4"
+            className="absolute -right-2 bottom-4 cursor-pointer text-3xl"
           >
             <CiMenuKebab />
           </div>
           {options && (
             <div
               onClick={() => handleDeleteComment(id)}
-              className="cursor-pointer hover:bg-red-500 transition text-sm font-semibold absolute right-5 select-none bg-red-500 rounded-md z-20 bottom-3 px-4 py-2"
+              className="absolute bottom-3 right-5 z-20 cursor-pointer select-none rounded-md bg-red-500 px-4 py-2 text-sm font-semibold transition hover:bg-red-500"
             >
               Delete Comment
             </div>

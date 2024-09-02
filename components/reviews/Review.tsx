@@ -44,9 +44,9 @@ type Props = {
 
 export default function Review({ review, user, session, signInUser }: Props) {
   return (
-    <div className="flex flex-col gap-10 items-center text-bg p-10 rounded-md open-sans">
+    <div className="open-sans flex flex-col items-center gap-10 rounded-md text-bg md:p-10">
       <div className="flex flex-col items-center gap-3">
-        <h1 className="font-bold text-4xl">
+        <h1 className="text-center text-4xl font-bold">
           Here&apos;s a Short Review of {review.title}
         </h1>
         <Image
@@ -59,11 +59,13 @@ export default function Review({ review, user, session, signInUser }: Props) {
         <p>
           Written by <span className="font-semibold">{review.author}</span>
         </p>
-        <p>Published on {formatMongoDate(review.createdAt)}</p>
+        <p className="text-center">
+          Published on {formatMongoDate(review.createdAt)}
+        </p>
       </div>
-      <div className="w-full h-[550px]">
+      <div className="h-80 w-full md:h-[550px]">
         <iframe
-          className="w-full h-full"
+          className="h-full w-full"
           src={review.videoUrl.replace("watch?v=", "embed/")}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
@@ -73,15 +75,15 @@ export default function Review({ review, user, session, signInUser }: Props) {
       <div className="flex flex-col gap-5 leading-relaxed tracking-wide">
         {review.paragraphs
           .filter((_, _index) =>
-            review.paragraphs.length >= 7 ? _index < 3 : _index < 1
+            review.paragraphs.length >= 7 ? _index < 3 : _index < 1,
           )
           .map((p, index) => (
             <p key={index}>{p}</p>
           ))}
       </div>
-      <div className="relative w-full h-[500px]">
+      <div className="relative h-80 w-full md:h-[500px]">
         <Image
-          className="object-cover rounded-sm"
+          className="rounded-sm object-cover"
           src={review.thumbnailUrl.secure_url}
           alt={`A scenic screen shot from the game ${review.title}`}
           fill
@@ -90,20 +92,20 @@ export default function Review({ review, user, session, signInUser }: Props) {
       <div className="flex flex-col gap-5 leading-relaxed tracking-wide">
         {review.paragraphs
           .filter((_, _index) =>
-            review.paragraphs.length >= 7 ? _index >= 3 : _index >= 1
+            review.paragraphs.length >= 7 ? _index >= 3 : _index >= 1,
           )
           .map((p, index) => (
             <p key={index}>{p}</p>
           ))}
       </div>
-      <div className="flex flex-col gap-4 items-center">
-        <p className="text-2xl font-bold">{review.title}</p>
-        <div className="flex items-center justify-center h-44 w-44 bg-red-500 text-secondary text-5xl font-bold rounded-full shadow-lg border-2">
+      <div className="flex flex-col items-center gap-4">
+        <p className="text-2xl font-bold text-center">{review.title}</p>
+        <div className="flex h-44 w-44 items-center justify-center rounded-full border-2 bg-red-500 text-5xl font-bold text-secondary shadow-lg">
           {review.rating}
         </div>
       </div>
       <div>
-        <p>
+        <p className="text-center">
           Be sure to checkout the YouTube channel, where you can watch every
           review I have made.{" "}
           <Link
@@ -115,7 +117,7 @@ export default function Review({ review, user, session, signInUser }: Props) {
           </Link>
         </p>
       </div>
-      <div>
+      <div className="w-full">
         <CommentSection
           gameReviewId={review.id}
           session={session}

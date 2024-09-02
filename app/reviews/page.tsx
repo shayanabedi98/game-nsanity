@@ -39,13 +39,13 @@ export default async function Reviews() {
     <div className="mb-32">
       <Hero content="REVIEWS" image="/assets/hero/1.webp" />
       <Container>
-        <div className="flex mt-32 flex-col gap-14">
+        <div className="mt-32 flex flex-col gap-14 max-sm:gap-20">
           {user.isAdmin && (
             <Link className="btn1" href={"/admin/create-review"}>
               Create Review
             </Link>
           )}
-          {reviews?.map((review) => (
+          {reviews?.map((review, index) => (
             <div key={review.id}>
               <ReviewCard adminControls={user.isAdmin} review={review} />
             </div>
