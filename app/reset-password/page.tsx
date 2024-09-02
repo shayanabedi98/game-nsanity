@@ -8,10 +8,11 @@ export default function ResetPassword() {
     <div className="flex h-screen items-center justify-center">
       <Image
         priority
-        className="object-cover"
+        className="max-md:hidden object-cover"
         src={"/assets/hero/8.webp"}
         alt="Video game screenshot of scenic view"
-        fill
+        width={1920}
+        height={1080}
       />
       <div className="absolute w-full">
         <Container>

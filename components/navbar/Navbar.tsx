@@ -43,7 +43,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="fixed z-30 flex h-20 w-full items-center bg-neutral-900 shadow-md">
+    <header className="fixed z-30 flex h-14 sm:h-20 w-full items-center bg-neutral-900 shadow-md">
       <Container>
         <nav className="flex items-center justify-between py-4">
           <Link href={"/"} className="work flex items-center gap-2">

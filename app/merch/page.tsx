@@ -11,7 +11,7 @@ export default function Merch() {
         alt="A man wearing a sweater by nsanity with a grungy streetwear design"
         fill
       />
-      <div className="absolute flex flex-col gap-16">
+      <div className="absolute flex flex-col px-4 gap-24">
         <Image
           priority
           src={"/assets/hero/nsanity-logo.webp"}

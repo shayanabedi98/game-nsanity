@@ -1,3 +1,4 @@
+import Container from "@/components/Container";
 import About from "@/components/home/About";
 import HomeHero from "@/components/home/HomeHero";
 import Image from "next/image";
@@ -11,6 +12,7 @@ export default async function Home() {
           src={"/assets/hero/11.webp"}
           alt=""
           fill
+          quality={100}
           className="max-md:hidden min-h-screen object-cover"
         />
         <div className="relative z-10 flex min-h-screen items-center justify-center">

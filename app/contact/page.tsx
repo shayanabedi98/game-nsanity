@@ -14,7 +14,7 @@ export default function Contact() {
           <div className="md:w-1/2">
             <ContactForm accessCode={accessCode!} />
           </div>
-          <div className="relative h-80 w-full md:w-1/2">
+          <div className="relative max-md:h-80 w-full md:w-1/2">
             <Image
               className="max-md:rounded-t-md md:rounded-r-md object-cover"
               src={"/assets/hero/9.webp"}

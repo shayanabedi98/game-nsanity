@@ -25,10 +25,11 @@ export default function HomeHero() {
     <div className="relative flex h-screen w-full flex-col items-center justify-center text-secondary">
       <Image
         priority
-        className="object-cover object-[-200px] opacity-[98%] md:object-center"
+        className="w-full h-full object-cover object-[-200px] opacity-[98%] md:object-center"
         src={"/assets/hero/3.webp"}
         alt="Video game screenshot"
-        fill
+        width={1920}
+        height={1080}
         quality={100}
       />
       <div className="absolute flex w-full flex-col items-center justify-center gap-10 rounded-sm px-4 py-11 lg:w-[750px]">

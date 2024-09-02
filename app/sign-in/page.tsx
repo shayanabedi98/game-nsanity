@@ -15,10 +15,11 @@ export default async function SignIn() {
     <div className="flex items-center justify-center h-screen">
       <Image
         priority
-        className="object-cover"
+        className="max-sm:hidden object-cover"
         src={"/assets/hero/4.webp"}
         alt="Video game screenshot of scenic view"
-        fill
+        width={1920}
+        height={1080}
       />
       <div className="absolute w-full">
         <Container>

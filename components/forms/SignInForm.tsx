@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
 import toast from "react-hot-toast";
 import { FaEye, FaGoogle } from "react-icons/fa";
+import { BiLoaderAlt } from "react-icons/bi";
 
 export default function SignInForm() {
   const [data, setData] = useState({
@@ -13,10 +14,10 @@ export default function SignInForm() {
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const searchParams = useSearchParams()
-  const callbackUrl = searchParams.get('callbackUrl') || '/';
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
 
   const handleChange = (dataProp: string, value: string) => {
     setData((prev) => ({ ...prev, [dataProp]: value }));
@@ -39,22 +40,27 @@ export default function SignInForm() {
 
       if (res?.ok) {
         router.push(callbackUrl);
-        router.refresh()
+        toast.success("Sign in successful");
+        setLoading(false);
+        router.refresh();
       } else if (res) {
+        setLoading(false);
         toast.error("Invalid email or password");
       } else {
+        setLoading(false);
         toast.error("An error occurred during sign in");
       }
     } catch (error) {
-      toast.error("Something went wrong. Please try again later")
+      setLoading(false);
+      toast.error("Something went wrong. Please try again later");
     }
   };
 
   return (
-    <div className="flex flex-col items-center px-8 py-4 sm:w-96 w-full mx-auto justify-center bg-neutral-900 rounded-md shadow-lg">
+    <div className="mx-auto flex w-full flex-col items-center justify-center rounded-md bg-neutral-900 px-8 py-4 shadow-lg sm:w-96">
       <form
         onSubmit={handleSubmit}
-        className="register w-full flex flex-col gap-2 items-center justify-center"
+        className="register flex w-full flex-col items-center justify-center gap-2"
       >
         <p className="text-xl font-semibold">Sign In</p>
         <div className="flex w-full flex-col gap-1">
@@ -78,26 +84,29 @@ export default function SignInForm() {
             type={showPassword ? "text" : "password"}
             name="password"
           />
-            <div
+          <div
             className="absolute bottom-1 right-2 cursor-pointer"
             onClick={() => setShowPassword(!showPassword)}
           >
             <FaEye
-            title="show password"
+              title="show password"
               className={`${
                 showPassword ? "text-primary" : "text-neutral-300"
               } text-lg`}
             />
           </div>
         </div>
-        <div className="border-b mt-4 pb-4 w-full flex items-center justify-center border-accent">
+        <div className="mt-4 flex w-full items-center justify-center border-b border-accent pb-4">
           <button className="btn1" type="submit">
-            Sign In
+          {loading ? <BiLoaderAlt className="animate-spin" /> : "Sign In"}
           </button>
         </div>
       </form>
-      <div className="flex-col gap-2 mt-4 w-full flex items-center justify-center border-accent">
-        <button onClick={() => signIn("google", {callbackUrl})} className="btn2 gap-2">
+      <div className="mt-4 flex w-full flex-col items-center justify-center gap-2 border-accent">
+        <button
+          onClick={() => signIn("google", { callbackUrl })}
+          className="btn2 gap-2"
+        >
           <FaGoogle className="text-2xl" /> Continue with Google
         </button>
         <span>
@@ -107,7 +116,7 @@ export default function SignInForm() {
           </Link>
         </span>
         <span>
-        <Link className="text-red-500" href={"/forgot-password"}>
+          <Link className="text-red-500" href={"/forgot-password"}>
             Forgot Password?
           </Link>
         </span>

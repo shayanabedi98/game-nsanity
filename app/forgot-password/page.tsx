@@ -16,11 +16,12 @@ export default async function ForgotPassword() {
     <div className="flex items-center justify-center h-screen">
       <Image
         priority
-        className="object-cover"
+        className="max-md:hidden object-cover"
         src={"/assets/hero/13.jpg"}
         alt="Video game screenshot of scenic view"
-        fill
-        quality={85}
+        width={1920}
+        height={1080}
+        quality={90}
       />
       <div className="absolute w-full">
         <Container>

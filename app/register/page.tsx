@@ -16,7 +16,7 @@ export default async function Register() {
     <div className="flex items-center justify-center h-screen">
       <Image
         priority
-        className="object-cover max-sm:object-[-400px]"
+        className="max-sm:hidden object-cover max-sm:object-[-400px]"
         src={"/assets/hero/2.webp"}
         alt="Video game screenshot of scenic view"
         fill
