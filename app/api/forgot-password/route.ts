@@ -7,20 +7,20 @@ export async function POST(req: Request) {
   try {
     const { email } = await req.json();
     const user = await prisma.user.findUnique({
-      where: { email },
+      where: { email: email.toLowerCase() },
     });
 
     if (!user) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
-    
+
     if (!user.hashedPassword) {
       return NextResponse.json(
         {
           message:
             "This account uses Google Sign-In. Please use Google to sign in.",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
     const resetToken = generateResetToken();
@@ -41,7 +41,7 @@ export async function POST(req: Request) {
     console.log(error);
     return NextResponse.json(
       { error: "Internal server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

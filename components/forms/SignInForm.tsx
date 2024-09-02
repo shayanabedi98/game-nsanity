@@ -34,7 +34,7 @@ export default function SignInForm() {
     try {
       const res = await signIn("credentials", {
         redirect: false,
-        email: data.email,
+        email: data.email.toLowerCase(),
         password: data.password,
       });
 
@@ -98,7 +98,7 @@ export default function SignInForm() {
         </div>
         <div className="mt-4 flex w-full items-center justify-center border-b border-accent pb-4">
           <button className="btn1" type="submit">
-          {loading ? <BiLoaderAlt className="animate-spin" /> : "Sign In"}
+            {loading ? <BiLoaderAlt className="animate-spin" /> : "Sign In"}
           </button>
         </div>
       </form>

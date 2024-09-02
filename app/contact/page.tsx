@@ -8,19 +8,19 @@ export default function Contact() {
 
   return (
     <div className="bg-neutral-300">
-      <Hero content="CONTACT" image="/assets/hero/5.webp" />
+      <Hero content="CONTACT" image="/assets/hero/7.webp" />
       <Container>
-        <div className="pb-32 mt-32 flex flex-col-reverse md:flex-row">
+        <div className="mt-32 flex flex-col-reverse pb-32 md:flex-row">
           <div className="md:w-1/2">
             <ContactForm accessCode={accessCode!} />
           </div>
-          <div className="relative max-md:h-80 w-full md:w-1/2">
+          <div className="relative w-full max-md:h-80 md:w-1/2">
             <Image
-              className="max-md:rounded-t-md md:rounded-r-md object-cover"
+              className="object-cover max-md:rounded-t-md md:rounded-r-md"
               src={"/assets/hero/9.webp"}
               alt="A picture of Spider-man swinging in Marvel's Spider-man game"
               fill
-              quality={85}
+              quality={90}
               priority
             />
           </div>

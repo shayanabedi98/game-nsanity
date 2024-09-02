@@ -176,7 +176,7 @@ export default function Navbar() {
                   href="/merch"
                 />
                 {session?.user ? (
-                  <div>
+                  <div className="flex flex-col items-center">
                     <div
                       onClick={() => {
                         signOut();

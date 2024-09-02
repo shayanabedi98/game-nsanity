@@ -11,12 +11,12 @@ export default function Hero({
     <div className="relative flex flex-col items-center justify-center w-full h-screen">
       <Image
         priority
-        className="w-full h-full object-cover"
+        className="max-sm:object-[-320px] w-full h-full object-cover"
         src={image}
         alt="Video game screenshot"
         width={1920}
         height={1080}
-        quality={95}
+        quality={100}
       />
       <h1 className="absolute text-center text-4xl font-bold sm:text-7xl">
         {content}
