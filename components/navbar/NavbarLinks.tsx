@@ -27,7 +27,7 @@ export default function NavbarLinks({
         youtube
           ? "text-red-500"
           : path == href
-            ? "min-w-[90px] rounded-sm border-b text-neutral-400"
+            ? "min-w-[90px] border-b text-neutral-400"
             : "min-w-[90px] text-secondary"
       }`}
       href={href}
