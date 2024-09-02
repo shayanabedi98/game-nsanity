@@ -1,10 +1,11 @@
 import Container from "@/components/Container";
 import ResetPasswordForm from "@/components/forms/ResetPasswordForm";
 import Image from "next/image";
+import { Suspense } from "react";
 
 export default function ResetPassword() {
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex h-screen items-center justify-center">
       <Image
         priority
         className="object-cover"
@@ -14,7 +15,9 @@ export default function ResetPassword() {
       />
       <div className="absolute w-full">
         <Container>
-          <ResetPasswordForm />
+          <Suspense fallback={<div className="text-bg">Loading...</div>}>
+            <ResetPasswordForm />
+          </Suspense>
         </Container>
       </div>
     </div>
