@@ -1,6 +1,5 @@
 import prisma from "@/lib/db";
 import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
 import { authOptions } from "../api/auth/[...nextauth]/options";
 import Container from "@/components/Container";
 import ReviewCard from "@/components/reviews/ReviewCard";
