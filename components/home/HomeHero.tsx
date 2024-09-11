@@ -11,7 +11,13 @@ export default function HomeHero() {
   useEffect(() => {
     async function fetchSubs() {
       try {
-        const res = await fetch("/api/youtube-stats");
+        const res = await fetch("/api/youtube-stats", {
+          method: "GET",
+          headers: {
+            "Cache-Control": "no-cache",
+          },
+          cache: "no-store",
+        });
         const data = await res.json();
         setSubscriberCount(Number(data.subscriberCount));
       } catch (error) {
@@ -25,7 +31,7 @@ export default function HomeHero() {
     <div className="relative flex h-screen w-full flex-col items-center justify-center text-secondary">
       <Image
         priority
-        className="w-full h-full object-cover object-[-200px] opacity-[98%] md:object-center"
+        className="h-full w-full object-cover object-[-200px] opacity-[98%] md:object-center"
         src={"/assets/hero/3.webp"}
         alt="Video game screenshot"
         width={1920}
