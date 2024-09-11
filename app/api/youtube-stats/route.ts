@@ -18,6 +18,9 @@ export async function GET() {
     return NextResponse.json({ subscriberCount });
   } catch (error) {
     console.log(error);
-    return NextResponse.json({ message: "Could not get youtube stats" });
+    return NextResponse.json(
+      { message: "Could not get youtube stats" },
+      { headers: { "Cache-Control": "no-cache, no-store, must-revalidate" } },
+    );
   }
 }
